@@ -15,6 +15,7 @@ html, body{
       filter: FlipH;
   }#camera--trigger{
       transform: rotateY(180deg);
+      -webkit-transform:rotateY(180deg);
       width: 200px;
       background-color: black;
       color: white;
