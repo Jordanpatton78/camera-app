@@ -14,8 +14,6 @@ html, body{
       transform: scaleX(-1);
       filter: FlipH;
   }#camera--trigger{
-      transform: rotateY(180deg);
-      -webkit-transform:rotateY(180deg);
       width: 200px;
       background-color: black;
       color: white;
@@ -28,6 +26,7 @@ html, body{
       position: fixed;
       bottom: 30px;
       left: calc(50% - 100px);
+      transform: rotateY(180deg);
   }.taken{
       height: 100px!important;
       width: 100px!important;
