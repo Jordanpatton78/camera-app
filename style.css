@@ -9,7 +9,6 @@ html, body{
       width: 100%;
       object-fit: cover;
   }#camera--view, #camera--sensor, #camera--output{
-      -webkit-transform: scalex(-1);
       transform: scaleX(-1);
       filter: FlipH;
   }#camera--trigger{
