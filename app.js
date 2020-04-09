@@ -1,9 +1,11 @@
 // Set constraints for the video stream
-var constraints = { video: { facingMode: "environment" }, audio: false};// Define constants
+var constraints = { video: { facingMode: "environment" }, audio: false};
+// Define constants
 const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
     cameraSensor = document.querySelector("#camera--sensor"),
-    cameraTrigger = document.querySelector("#camera--trigger")// Access the device camera and stream to cameraView
+    cameraTrigger = document.querySelector("#camera--trigger")
+// Access the device camera and stream to cameraView
 function cameraStart() {
     navigator.mediaDevices
         .getUserMedia(constraints)
@@ -14,13 +16,23 @@ function cameraStart() {
     .catch(function(error) {
         console.error("Oops. Something is broken.", error);
     });
-}// Take a picture when cameraTrigger is tapped
+}
+// Take a picture when cameraTrigger is tapped
 cameraTrigger.onclick = function() {
     cameraSensor.width = cameraView.videoWidth;
     cameraSensor.height = cameraView.videoHeight;
-    cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
+    var ctx =cameraSensor.getContext("2d");
+    ctx.drawImage(cameraView, 0, 0);
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
-};// Start the video stream when the window loads
+    Tesseract.recognize(ctx).then(function(result){
+        var resultText=resultText ? resultText.trim() : '';
+        
+        $('blockquote p').html('&bdquo;'+ resultText + '&ldquo;');
+        $('blockquote footer').text('('+ resultText.length + ' characters')');
+    });
+                               
+};
+// Start the video stream when the window loads
 window.addEventListener("load", cameraStart, false);
