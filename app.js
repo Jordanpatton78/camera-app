@@ -30,7 +30,7 @@ cameraTrigger.onclick = function() {
         var resultText=resultText ? resultText.trim() : '';
         
         $('blockquote p').html('&bdquo;'+ resultText + '&ldquo;');
-        $('blockquote footer').text('('+ resultText.length + ' characters')');
+        $('blockquote footer').text('('+ resultText.length + ' characters');
     });
                                
 };
