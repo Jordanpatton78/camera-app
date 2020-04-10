@@ -28,14 +28,14 @@ cameraTrigger.onclick = function() {
     cameraOutput.classList.add("taken");
     const { createWorker } = require('tesseract.js');
     const worker = createWorker();
-    (async () => {
+    (async function useWorker() => {
       await worker.load();
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
       const { data: { text}} = await worker.recognize(image);
       document.write(text);
       await worker.terminate();
-    })();
+    })useWorker();
     });
                                
 };
