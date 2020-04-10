@@ -1,4 +1,3 @@
-import Tesseract from 'tesseract.js';
 // Set constraints for the video stream
 var constraints = { video: { facingMode: "environment" }, audio: false};
 // Define constants
@@ -26,7 +25,6 @@ cameraTrigger.onclick = function() {
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
-    Tesseract.recognize("image/octet-stream","eng").then(({data : {text} })=> document.write(text))
 }
                                
 // Start the video stream when the window loads
