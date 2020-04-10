@@ -26,16 +26,6 @@ cameraTrigger.onclick = function() {
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
-    const { createWorker } = require('tesseract.js');
-    const worker = createWorker();
-    (async function useWorker() => {
-      await worker.load();
-      await worker.loadLanguage('eng');
-      await worker.initialize('eng');
-      const { data: { text}} = await worker.recognize(image);
-      document.write(text);
-      await worker.terminate();
-    })useWorker();
     });
                                
 };
