@@ -33,6 +33,7 @@ cameraTrigger.onclick = function() {
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
       const { data: { text}} = await worker.recognize(image);
+      document.write(text);
       await worker.terminate();
     })();
     });
