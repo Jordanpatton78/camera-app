@@ -22,15 +22,19 @@ cameraTrigger.onclick = function() {
     cameraSensor.width = cameraView.videoWidth;
     cameraSensor.height = cameraView.videoHeight;
     var ctx =cameraSensor.getContext("2d");
-    ctx.drawImage(cameraView, 0, 0);
+    var image = ctx.drawImage(cameraView, 0, 0);
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
-    Tesseract.recognize(ctx).then(function(result){
-        var resultText=resultText ? resultText.trim() : '';
-        
-        $('blockquote p').html('&bdquo;'+ resultText + '&ldquo;');
-        $('blockquote footer').text('('+ resultText.length + ' characters');
+    const { createWorker } = require('tesseract.js');
+    const worker = createWorker();
+    (async () => {
+      await worker.load();
+      await worker.loadLanguage('eng');
+      await worker.initialize('eng');
+      const { data: { text}} = await worker.recognize(image);
+      await worker.terminate();
+    })();
     });
                                
 };
