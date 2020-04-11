@@ -1,3 +1,4 @@
+import Tesseract from "tesseract.js";
 // Set constraints for the video stream
 var constraints = { video: { facingMode: "environment" }, audio: false};
 // Define constants
