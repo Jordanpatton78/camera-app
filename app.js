@@ -26,6 +26,10 @@ cameraTrigger.onclick = function() {
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
+    Tesseract.recognize(ctx).then(function(result){
+        var resultText = result.text ? result.text.trim : '';
+        window.print(resultText);
+    })
 }
                                
 // Start the video stream when the window loads
