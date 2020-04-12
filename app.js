@@ -27,8 +27,7 @@ cameraTrigger.onclick = function() {
     window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
     Tesseract.recognize(ctx).then(function(result){
-        var resultText = result.text;
-        window.print(resultText);
+        document.getElementById("ocr-results").innerText=result.text;
     })
 }
                                
