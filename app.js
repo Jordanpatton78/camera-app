@@ -4,7 +4,7 @@ var constraints = { video: { facingMode: "environment" }, audio: false};
 const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
     cameraSensor = document.querySelector("#camera--sensor"),
-    cameraTrigger = document.querySelector("#camera--trigger");
+    cameraTrigger = document.querySelector("#camera--trigger")
     
 // Access the device camera and stream to cameraView
 function cameraStart() {
@@ -22,12 +22,19 @@ function cameraStart() {
 cameraTrigger.onclick = function() {
     cameraSensor.width = cameraView.videoWidth;
     cameraSensor.height = cameraView.videoHeight;
-    var image=cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
+    var image =cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
-    window.location.href=cameraOutput.src;
+    //window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
+    doOCR(image);
+}
+
+function doOCR(image){
+    var newWindow=window.open("index2.html");
     var string=OCRAD(image);
-    alert(string);
+    newWindow.document.write("<p>"+string+"</p>");
+    
+
 }
                                
 // Start the video stream when the window loads
