@@ -4,7 +4,9 @@ var constraints = { video: { facingMode: "environment" }, audio: false};
 const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
     cameraSensor = document.querySelector("#camera--sensor"),
-    cameraTrigger = document.querySelector("#camera--trigger")
+    cameraTrigger = document.querySelector("#camera--trigger"),
+    Tesseract=require('tesseract.js'),
+    worker=Tesseract.createWorker()
     
 // Access the device camera and stream to cameraView
 function cameraStart() {
@@ -26,16 +28,23 @@ cameraTrigger.onclick = function() {
     cameraOutput.src = cameraSensor.toDataURL("image/webp").replace("image/webp","image/octet-stream");
     //window.location.href=cameraOutput.src;
     cameraOutput.classList.add("taken");
-    doOCR(image);
+    window.open("index2.html");
+    work();
 }
 
-function doOCR(image){
-    var newWindow=window.open("index2.html");
-    var string=OCRAD(image);
-    newWindow.document.write("<p>"+string+"</p>");
-    
+async function work() {
+  await worker.load();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
 
+  let result = await worker.detect(exampleImage);
+
+  result = await worker.recognize(exampleImage);
+
+  await worker.terminate();
+    return result.data;
 }
+
                                
 // Start the video stream when the window loads
 window.addEventListener("load", cameraStart, false);
