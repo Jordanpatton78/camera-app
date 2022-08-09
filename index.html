@@ -119,6 +119,15 @@
         die("Connection failed".connect_error);
     }
     echo "Connected Successfully."
+
+    $sql = "CREATE DATABASE MyDB";
+    if ($conn->query($sql) === TRUE) {
+        echo "Database created successfully";
+    } else {
+        echo "Error creating database: " . $conn->error;
+    }
+
+    $conn->close();
     ?>
 </body>
 <div id="results" align="center"></div>
